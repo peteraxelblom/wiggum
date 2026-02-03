@@ -91,7 +91,6 @@ wiggum/
 │   ├── PROMPT_plan.md           # Planning mode template
 │   ├── PROMPT_build.md          # Building mode template
 │   └── IMPLEMENTATION_PLAN.md   # Task list template
-├── specs/                       # Your specification files
 ├── CLAUDE.md                    # Expert instructions
 └── RALPH_WIGGUM_RESEARCH.md     # Methodology reference
 ```
