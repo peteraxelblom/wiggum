@@ -1,0 +1,9 @@
+{
+  "name": "wiggum",
+  "version": "1.0.0",
+  "description": "Ralph Wiggum autonomous loop implementation - run AI coding agents in persistent loops until specifications are met",
+  "author": "peterblom",
+  "repository": "https://github.com/peterblom/wiggum",
+  "keywords": ["ralph-wiggum", "autonomous", "loop", "ai-coding", "claude-code"],
+  "license": "MIT"
+}

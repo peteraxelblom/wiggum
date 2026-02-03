@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "type": "command",
+        "command": "bash \"$(dirname \"$CLAUDE_PLUGIN_PATH\")/scripts/stop-hook.sh\" 2>/dev/null || bash ./scripts/stop-hook.sh"
+      }
+    ]
+  }
+}
