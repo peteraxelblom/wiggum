@@ -146,6 +146,17 @@ It has clear completion criteria and can be verified automatically.
 Would you like me to start a Ralph loop? [Yes/No]"
 
 If they agree, use `/ralph-start` with a clear task description, or use `/ralph-plan` first for complex tasks.
+
+### After User Approves
+
+**IMPORTANT: Do NOT tell the user to open a new terminal or run commands manually.**
+
+When the user approves a Ralph loop:
+1. Use `/ralph-start` with a clear task description and appropriate `--max-iterations`
+2. **Immediately begin working** on the task in this session
+3. The stop hook will automatically continue the loop when this session ends
+
+The user just says "yes" and you handle everything. That's the point of autonomous loops.
 EOF
         print_status "Added Ralph integration instructions."
     else
