@@ -111,6 +111,16 @@ install() {
 
 The wiggum plugin is installed globally. It provides autonomous loop capabilities for suitable tasks.
 
+### Core Principle: Backpressure-Driven Iteration
+
+Ralph's value is **NOT** about managing context windows. It's about autonomous iteration through failures:
+
+```
+Try → Validate (tests/typecheck) → Fail → Retry (until validation passes)
+```
+
+Tests and typechecks create "backpressure" that rejects invalid work and guides fixes.
+
 ### Available Skills
 
 - `/ralph-start` - Start an autonomous development loop
@@ -121,28 +131,26 @@ The wiggum plugin is installed globally. It provides autonomous loop capabilitie
 
 ### When to Suggest Ralph
 
-When the user gives a substantial task, consider if it's Ralph-worthy:
+The KEY question: **Does the task have strong backpressure (tests/typecheck that will catch failures)?**
 
 **Good for Ralph:**
-- Large refactors (many files, repetitive changes)
-- Migrations (dependency updates, API changes)
-- Test coverage (adding tests to existing code)
-- Documentation generation
-- Batch operations with clear patterns
+- Migrations where builds/tests will fail and guide fixes (e.g., React upgrade)
+- Large refactors with existing test coverage
+- Tasks where you EXPECT multiple failed attempts before success
+- Grinding through many errors autonomously
 
 **Not suitable:**
-- Ambiguous requirements ("make it better")
-- Architectural decisions requiring judgment
-- Security-sensitive code
-- Exploration/research tasks
-- Single-file quick fixes
+- No tests or validation to catch failures (Ralph can't learn)
+- Simple tasks likely to succeed first try (no iteration needed)
+- Ambiguous requirements with no pass/fail criteria
+- Architectural decisions (tests can't tell you which design is right)
 
 ### Suggesting Ralph
 
-If a task seems suitable, you can suggest it:
+If a task has strong backpressure and will benefit from try-fail-retry cycles:
 
-"This task looks suitable for a Ralph loop (autonomous iteration until complete).
-It has clear completion criteria and can be verified automatically.
+"This task has good backpressure (tests will catch failures and guide fixes).
+Ralph can iterate autonomously until tests pass.
 Would you like me to start a Ralph loop? [Yes/No]"
 
 If they agree, use `/ralph-start` with a clear task description, or use `/ralph-plan` first for complex tasks.

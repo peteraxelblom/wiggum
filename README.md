@@ -4,7 +4,20 @@ A custom implementation of the Ralph Wiggum autonomous loop technique for Claude
 
 ## What is Ralph Wiggum?
 
-The Ralph Wiggum technique runs AI coding agents in persistent loops until specifications are met. Progress persists in files and git history, not in the LLM's context window. Each iteration starts fresh, picking up where the last left off.
+The Ralph Wiggum technique runs AI coding agents in autonomous loops until tests pass. The core principle is **backpressure-driven iteration**:
+
+```
+1. Try to implement
+2. Run validation (tests, typecheck, lint)
+3. If FAILS → failure output fed back → try again
+4. If PASSES → check completion criteria → done or continue
+```
+
+> "If you press the model hard enough against its own failures without a safety net, it will eventually 'dream' a correct solution just to escape the loop." — Geoffrey Huntley
+
+**Key insight**: Ralph's value is NOT about managing context windows. It's about autonomous iteration through failures until validation passes. Tests and typechecks create "backpressure" that rejects invalid work and guides fixes.
+
+Progress persists in files and git history, not in the LLM's context window. Each iteration starts fresh, picking up where the last left off.
 
 > "The filesystem IS the state. Git IS the memory." — Geoffrey Huntley
 
@@ -158,18 +171,18 @@ Run manually: `./scripts/verify.sh`
 
 ## Best Practices
 
-### Good Tasks for Ralph
-- Large refactors
-- Dependency updates
-- Test coverage generation
-- Migrations
-- Documentation generation
+### Good Tasks for Ralph (has backpressure + expects failures)
+- **Migrations** - React upgrade, dependency updates (builds will fail, tests will fail)
+- **Large refactors** - With existing test coverage to catch mistakes
+- **Fixing many test failures** - Clear pass/fail, iteration helps
+- **Type system migrations** - TypeScript will guide fixes
 
 ### Bad Tasks for Ralph
-- Ambiguous requirements
-- Architectural decisions
-- Security-sensitive code
-- Open-ended exploration
+- **No backpressure** - No tests, no typecheck (Ralph can't learn from failures)
+- **Simple tasks** - Likely to succeed first try (just do it directly)
+- **Ambiguous requirements** - No clear pass/fail criteria
+- **Architectural decisions** - Tests can't tell you which design is right
+- **Security-sensitive code** - Needs human review, not autonomous iteration
 
 ### Exit Criteria
 
